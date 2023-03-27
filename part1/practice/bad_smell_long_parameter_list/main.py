@@ -11,40 +11,28 @@
 
 
 class Unit:
-    def move(self, field, x_coord, y_coord, direction, is_fly, crawl, speed = 1):
-
-        if is_fly and crawl:
-            raise ValueError('Рожденный ползать летать не должен!')
-
+    def __init__(self, field, x_coord, y_coord, is_fly=False):
+        self.field = field
+        self.x_coord = x_coord
+        self.y_coord = y_coord
         if is_fly:
-            speed *= 1.2
-            if direction == 'UP':
-                new_y = y_coord + speed
-                new_x = x_coord
-            elif direction == 'DOWN':
-                new_y = y_coord - speed
-                new_x = x_coord
-            elif direction == 'LEFT':
-                new_y = y_coord
-                new_x = x_coord - speed
-            elif direction == 'RIGTH':
-                new_y = y_coord
-                new_x = x_coord + speed
-        if crawl:
-            speed *= 0.5
-            if direction == 'UP':
-                new_y = y_coord + speed
-                new_x = x_coord
-            elif direction == 'DOWN':
-                new_y = y_coord - speed
-                new_x = x_coord
-            elif direction == 'LEFT':
-                new_y = y_coord
-                new_x = x_coord - speed
-            elif direction == 'RIGTH':
-                new_y = y_coord
-                new_x = x_coord + speed
+            self.speed = 1.2
+        else:
+            self.speed = 0.5
 
-            field.set_unit(x=new_x, y=new_y, unit=self)
+    def move(self, direction):
 
-#     ...
+        if direction == 'UP':
+                new_y = self.y_coord + self.speed
+                new_x = self.x_coord
+        elif direction == 'DOWN':
+                new_y = self.y_coord - self.speed
+                new_x = self.x_coord
+        elif direction == 'LEFT':
+                new_y = self.y_coord
+                new_x = self.x_coord - self.speed
+        elif direction == 'RIGTH':
+                new_y = self.y_coord
+                new_x = self.x_coord + self.speed
+
+        self.field.set_unit(x=new_x, y=new_y, unit=self)
